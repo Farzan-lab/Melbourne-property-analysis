@@ -1,0 +1,28 @@
+# R
+.Rhistory
+.RData
+.Rproj.user
+*.Rproj
+
+# Data files (large — keep out of git)
+data/*.csv
+data/*.rds
+data/*.RData
+
+# Output files (generated — not tracked)
+outputs/figures/*.png
+outputs/figures/*.html
+outputs/reports/*.html
+outputs/reports/*.pdf
+outputs/tables/*.csv
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Shiny deployments
+rsconnect/
+
+# Sensitive
+.env
+secrets.R
