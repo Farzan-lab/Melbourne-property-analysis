@@ -1,38 +1,26 @@
 # 🏠 Melbourne Property Market Analysis (2010–2023)
 
 [![R](https://img.shields.io/badge/R-4.3+-276DC3?style=flat&logo=r&logoColor=white)](https://www.r-project.org/)
+[![Shell](https://img.shields.io/badge/Shell-Bash-4EAA25?style=flat&logo=gnubash&logoColor=white)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Shiny App](https://img.shields.io/badge/Shiny-Live%20Demo-blue?style=flat&logo=rstudio)](https://yourname.shinyapps.io/melbourne-property)
 [![Status](https://img.shields.io/badge/Status-Active-brightgreen)]()
 
-> An end-to-end data science project analysing **150,000+ Victorian property transactions** across 13 years, combining exploratory analysis, NLP, machine learning, and interactive visualisation to uncover actionable insights for buyers, investors, and the real estate industry.
+> End-to-end data science project analysing **150,000+ Victorian property transactions** across 13 years. Combines shell automation, exploratory analysis, formal statistical inference, NLP, machine learning, and an interactive Shiny dashboard.
 
 ---
 
 ## 📌 Problem Statement
 
-Melbourne's property market is one of Australia's most dynamic and complex. This project investigates:
+Melbourne's property market is one of Australia's most complex. This project answers 14 research questions across 5 analytical domains:
 
-- **Which suburbs** drive the highest transaction volumes — and how did they behave in 2022?
-- **What language** in property descriptions actually influences sale prices?
-- **How strongly** does land size correlate with price across different property types?
-- **Which properties** delivered the highest capital gains within 5 years of first sale?
-- **What anomalies** exist in the data — properties that could not realistically exist?
-- **What will a renovated 4-bed/2-bath house cost in July 2026** across six target suburbs?
-
----
-
-## 🔑 Key Findings
-
-| # | Finding | Value |
-|---|---------|-------|
-| 1 | Top suburb by transaction volume (2010–2023) | `[TBD after analysis]` |
-| 2 | Most impactful keyword on property price | `[TBD after analysis]` |
-| 3 | Strongest price–land size correlation | `[TBD after analysis]` |
-| 4 | Highest capital gain in <5 years | `[TBD after analysis]` |
-| 5 | Predicted price in Glen Waverley (Jul 2026) | `[TBD after analysis]` |
-
-> 📄 Full findings in [`docs/executive_summary.pdf`](docs/executive_summary.pdf)
+| Domain | Questions |
+|--------|-----------|
+| 📊 Descriptive Statistics | Price distributions, log-normality, COVID structural shift |
+| 🧪 Hypothesis Testing | Property-type price differences, renovation premium, COVID shock |
+| 📈 Regression | Hedonic pricing, diminishing returns on land, quantile effects |
+| 📉 Time Series | STL decomposition, unit root tests, ARIMA forecast |
+| ⏱️ Survival Analysis | Holding periods, Cox PH model of resale behaviour |
 
 ---
 
@@ -41,38 +29,116 @@ Melbourne's property market is one of Australia's most dynamic and complex. This
 ```
 melbourne-property-analysis/
 │
-├── README.md                    ← You are here
-├── LICENSE
-├── .gitignore
+├── shell/                          ← Bash automation scripts
+│   ├── run_pipeline.sh             ← Full pipeline orchestrator (main entry point)
+│   ├── validate_data.sh            ← Data quality checks (awk/sed/grep)
+│   ├── setup_environment.sh        ← Bootstrap environment & git hooks
+│   └── generate_report.sh          ← Render all R Markdown reports
 │
-├── data/
-│   └── TaskC_property_victoria.csv    ← Raw dataset (not tracked by git)
+├── R/                              ← Core analysis (run in order)
+│   ├── 00_setup.R                  ← Packages, theme, helpers
+│   ├── 01_load_clean.R             ← Load, parse, clean
+│   ├── 02_eda_transactions.R       ← Q1: Top suburbs & 2022 monthly trends
+│   ├── 03_nlp_keywords.R           ← Q2: NLP keyword price impact
+│   ├── 04_correlation.R            ← Q3: Price–area correlation
+│   ├── 05_capital_gains.R          ← Q4: Highest capital gains
+│   ├── 06_anomaly_detection.R      ← Q5: Unrealistic properties
+│   ├── 07_price_prediction.R       ← Q6: XGBoost 2026 forecast
+│   │
+│   └── statistical_analysis/       ← Advanced statistical modelling
+│       ├── 08_descriptive_stats.R  ← RQ1–3: Distributions, normality, COVID shift
+│       ├── 09_hypothesis_testing.R ← RQ4–5: Kruskal-Wallis, t-test, ANOVA
+│       ├── 10_regression_analysis.R← RQ6–9: Hedonic model, quantile regression
+│       ├── 11_time_series.R        ← RQ10–11: STL, ADF/KPSS, ARIMA
+│       └── 12_survival_analysis.R  ← RQ12–14: KM curves, Cox PH model
 │
-├── R/                           ← Analysis scripts (run in order)
-│   ├── 00_setup.R               ← Package installation & global settings
-│   ├── 01_load_clean.R          ← Data loading, cleaning, type casting
-│   ├── 02_eda_transactions.R    ← Q1: Top suburbs & monthly trends
-│   ├── 03_nlp_keywords.R        ← Q2: NLP keyword extraction
-│   ├── 04_correlation.R         ← Q3: Price vs land size correlations
-│   ├── 05_capital_gains.R       ← Q4: Highest capital gain properties
-│   ├── 06_anomaly_detection.R   ← Q5: Unrealistic property identification
-│   └── 07_price_prediction.R    ← Q6: ML model & 2026 price forecast
-│
-├── shiny_app/                   ← Interactive dashboard
-│   ├── app.R                    ← Main Shiny entry point
+├── shiny_app/                      ← Interactive dashboard
+│   ├── app.R
 │   └── modules/
-│       ├── mod_map.R            ← Leaflet map module
-│       ├── mod_predict.R        ← Price prediction UI module
-│       └── mod_trends.R         ← Transaction trend module
+│       ├── mod_trends.R
+│       ├── mod_predict.R
+│       └── mod_map.R
 │
-├── outputs/
-│   ├── figures/                 ← All generated plots (.png / .html)
-│   ├── reports/                 ← R Markdown rendered reports
-│   └── tables/                  ← CSV exports of key results
-│
-└── docs/
-    └── executive_summary.pdf    ← One-page business summary
+├── data/                           ← Raw & processed data (CSV not tracked)
+├── outputs/figures/                ← Generated plots
+├── outputs/tables/                 ← CSV result exports
+├── outputs/reports/                ← Rendered HTML reports
+├── docs/                           ← R Markdown source for reports
+└── logs/                           ← Pipeline run logs
 ```
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# 1. Clone
+git clone https://github.com/yourusername/melbourne-property-analysis.git
+cd melbourne-property-analysis
+
+# 2. Bootstrap environment (installs R packages, sets up git hooks)
+chmod +x shell/*.sh
+./shell/setup_environment.sh
+
+# 3. Add dataset
+cp /path/to/TaskC_property_victoria.csv data/
+
+# 4. Validate data quality
+./shell/validate_data.sh
+
+# 5. Run full pipeline
+./shell/run_pipeline.sh
+
+# 6. Run specific stage only
+./shell/run_pipeline.sh --stage stats
+
+# 7. Dry run (environment check only)
+./shell/run_pipeline.sh --dry-run
+
+# 8. Launch dashboard
+Rscript -e "shiny::runApp('shiny_app/')"
+```
+
+---
+
+## 🧪 Statistical Research Questions
+
+### Descriptive Analysis
+| RQ | Question | Method |
+|----|----------|--------|
+| RQ1 | Is the price distribution log-normal? | Shapiro-Wilk, Anderson-Darling, QQ plot |
+| RQ2 | How do dispersion metrics vary by property type? | CV, Gini coefficient, violin plots |
+| RQ3 | Did COVID structurally shift the price distribution? | KDE comparison, summary stats |
+
+### Hypothesis Testing
+| H | Null Hypothesis | Test | Key Result |
+|---|-----------------|------|------------|
+| H1 | Prices equal across property types | Kruskal-Wallis | `[run to see]` |
+| H2 | COVID did NOT increase prices (2019 vs 2021) | Mann-Whitney U | `[run to see]` |
+| H3 | "Renovated" keyword has no price effect | Welch t-test | `[run to see]` |
+| H4 | Bedroom count does not predict price | One-way ANOVA + Tukey | `[run to see]` |
+
+### Regression Modelling
+| RQ | Question | Method |
+|----|----------|--------|
+| RQ4 | What structural features drive price? | OLS hedonic model + robust SE |
+| RQ5 | Linear or diminishing returns on land area? | Log-log vs polynomial, AIC |
+| RQ6 | Do determinants differ by price segment? | Quantile regression (τ=0.25/0.50/0.75/0.90) |
+| RQ7 | Has bedroom value changed over time? | Interaction model: beds × year |
+
+### Time Series
+| RQ | Question | Method |
+|----|----------|--------|
+| RQ8 | What are trend/seasonal/noise components? | STL decomposition |
+| RQ9 | Is the series stationary? | ADF test, KPSS test |
+| RQ10 | What does ARIMA forecast for 2024–25? | auto.arima + prediction intervals |
+
+### Survival Analysis
+| RQ | Question | Method |
+|----|----------|--------|
+| RQ12 | How long do owners hold before reselling? | Kaplan-Meier + log-rank |
+| RQ13 | What predicts faster resale? | Cox Proportional Hazards |
+| RQ14 | Did COVID change holding behaviour? | Stratified KM by era |
 
 ---
 
@@ -80,117 +146,20 @@ melbourne-property-analysis/
 
 | Category | Tools |
 |----------|-------|
-| Language | R 4.3+ |
-| Data Wrangling | `tidyverse`, `lubridate`, `janitor` |
-| NLP | `tidytext`, `tm`, `wordcloud2` |
-| Machine Learning | `tidymodels`, `xgboost`, `ranger` |
-| Visualisation | `ggplot2`, `plotly`, `leaflet` |
-| Dashboard | `shiny`, `shinydashboard`, `bslib` |
-| Reporting | `rmarkdown`, `knitr`, `gt` |
-
----
-
-## 🚀 How to Run
-
-### 1. Clone the repository
-```bash
-git clone https://github.com/yourusername/melbourne-property-analysis.git
-cd melbourne-property-analysis
-```
-
-### 2. Install dependencies
-```r
-# Run this first
-source("R/00_setup.R")
-```
-
-### 3. Add the dataset
-Place `TaskC_property_victoria.csv` inside the `data/` folder.
-
-### 4. Run the analysis pipeline
-```r
-source("R/01_load_clean.R")
-source("R/02_eda_transactions.R")
-source("R/03_nlp_keywords.R")
-source("R/04_correlation.R")
-source("R/05_capital_gains.R")
-source("R/06_anomaly_detection.R")
-source("R/07_price_prediction.R")
-```
-
-### 5. Launch the Shiny dashboard
-```r
-shiny::runApp("shiny_app/")
-```
-
----
-
-## 📊 Sample Visualisations
-
-> *(After running the analysis, plots are saved to `outputs/figures/`)*
-
-- `01_monthly_transactions_top3_2022.png` — Monthly counts for top 3 suburbs + Toorak
-- `02_nlp_wordcloud.png` — Keywords weighted by price impact
-- `03_correlation_heatmap.png` — Price vs land size by suburb & property type
-- `04_capital_gains_timeline.png` — Top 5 capital gain properties
-- `05_anomalies_table.png` — Unrealistic property summary
-- `06_predicted_prices_2026.png` — Predicted July 2026 prices for 6 suburbs
-
----
-
-## 🧠 Methodology
-
-### Q2 — NLP Keyword Analysis
-A 10% stratified sample of the dataset was used. Property descriptions were cleaned (HTML tags removed, stopwords filtered), and TF-IDF was computed. Keywords were then correlated with log-transformed sale prices using linear regression to identify the top 3 price-driving terms.
-
-### Q6 — Price Prediction Model
-An XGBoost regression model was trained on the full 2010–2023 dataset with the following engineered features:
-
-- Suburb (one-hot encoded)
-- Property type
-- Beds, baths, parking
-- Land area
-- Keyword flags: "renovated", "shopping centre", "primary school"
-- Sold year + month (temporal features)
-
-Model selection via 5-fold cross-validation. Final model predicts July 2026 prices for 6 suburbs under Chris's criteria.
-
----
-
-## 📁 Data Description
-
-| Column | Description |
-|--------|-------------|
-| `ID` | Unique property listing identifier |
-| `postcode` | Victorian postcode |
-| `suburb` | Suburb name |
-| `sold_time` | Date of sale |
-| `sold_price` | Sale price in AUD |
-| `address` | Full street address |
-| `beds` | Number of bedrooms |
-| `baths` | Number of bathrooms |
-| `parking` | Number of parking spaces |
-| `area` | Land area in m² |
-| `property_type` | house / unit / townhouse / apartment / etc. |
-| `description` | Full listing description text |
-
-**Dataset period:** 2010–2023 | **Geography:** Victoria, Australia
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License — see [`LICENSE`](LICENSE) for details.
+| Shell automation | Bash, awk, sed, grep, tee |
+| Data wrangling | R, tidyverse, lubridate, janitor |
+| Statistics | lmtest, car, sandwich, nortest, moments, DescTools |
+| Survival analysis | survival, survminer |
+| Time series | tseries, forecast, zoo |
+| NLP | tidytext, tm, SnowballC |
+| Machine learning | tidymodels, xgboost, ranger, vip |
+| Visualisation | ggplot2, plotly, leaflet, patchwork |
+| Dashboard | shiny, bslib, DT, shinyWidgets |
 
 ---
 
 ## 👤 Author
 
-**Your Name**
-- 🔗 LinkedIn: [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
-- 📧 Email: your.email@example.com
-- 🌐 Portfolio: [yourportfolio.com](https://yourportfolio.com)
+**Your Name** | [LinkedIn](https://linkedin.com/in/yourprofile) | [Portfolio](https://yourportfolio.com)
 
----
-
-*This project was developed as part of a data science portfolio to demonstrate skills in real estate analytics, NLP, and machine learning using Victorian property transaction data.*
+*Designed as a portfolio project demonstrating end-to-end data science skills: shell scripting, statistical inference, machine learning, and interactive visualisation.*

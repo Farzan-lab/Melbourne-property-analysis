@@ -1,0 +1,15 @@
+```{r}
+library(ggplot2)
+library(fitdistrplus)
+library(dplyr)
+```
+
+```{r}
+dataset = read.csv("C:/Users/farza/Job/Github/Melbourne-property-analysis/data/Melbourne Property.csv")
+```
+
+
+```{r}
+head(dataset)
+```
+
