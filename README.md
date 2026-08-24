@@ -187,7 +187,7 @@ This project is licensed under the MIT License — see [`LICENSE`](LICENSE) for 
 ## 👤 Author
 
 **Your Name**
-- 🔗 LinkedIn: [www.linkedin.com/in/farzan-momayezi](https://linkedin.com/in/yourprofile)
+- 🔗 LinkedIn: [www.linkedin.com/in/farzan-momayezi](www.linkedin.com/in/farzan-momayezi)
 - 📧 Email: farzanmomayezi@gmail.com
   
 ---
