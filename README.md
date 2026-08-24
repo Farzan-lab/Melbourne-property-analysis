@@ -160,6 +160,9 @@ Rscript -e "shiny::runApp('shiny_app/')"
 
 ## 👤 Author
 
-**Your Name** | [LinkedIn](https://linkedin.com/in/yourprofile) | [Portfolio](https://yourportfolio.com)
+**Your Name**
+- 🔗 LinkedIn: [linkedin.com/in/farzan-momayezi](https://www.linkedin.com/in/farzan-momayezi)
+- 📧 Email: farzanmomayezi@gmail.com
+- 🌐 Portfolio: [yourportfolio.com](https://yourportfolio.com)
 
-*Designed as a portfolio project demonstrating end-to-end data science skills: shell scripting, statistical inference, machine learning, and interactive visualisation.*
+*This project was developed as part of a data science portfolio to demonstrate end-to-end skills in real estate analytics, NLP, machine learning, shell scripting, statistical inference, and interactive visualisation using Victorian property transaction data.*
