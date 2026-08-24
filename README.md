@@ -187,10 +187,9 @@ This project is licensed under the MIT License — see [`LICENSE`](LICENSE) for 
 ## 👤 Author
 
 **Your Name**
-- 🔗 LinkedIn: [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
-- 📧 Email: your.email@example.com
-- 🌐 Portfolio: [yourportfolio.com](https://yourportfolio.com)
-
+- 🔗 LinkedIn: [www.linkedin.com/in/farzan-momayezi](https://linkedin.com/in/yourprofile)
+- 📧 Email: farzanmomayezi@gmail.com
+  
 ---
 
 *This project was developed as part of a data science portfolio to demonstrate skills in real estate analytics, NLP, and machine learning using Victorian property transaction data.*
